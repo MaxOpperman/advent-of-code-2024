@@ -9,13 +9,7 @@ def one_a(text: list[str]) -> int:
     right_list = []
     for line in text:
         string_locations = line.split()
-        if len(string_locations) != 2 or len(string_locations[0]) != len(
-            string_locations[1]
-        ):
-            raise ValueError(f"Invalid input: {string_locations}")
-        if any(not s.isdigit() for s in string_locations[0]) or any(
-            not s.isdigit() for s in string_locations[1]
-        ):
+        if len(string_locations) != 2 or any(not s.isdigit() for s in string_locations):
             raise ValueError(f"Invalid input: {string_locations}")
         left_list.append(string_locations[0])
         right_list.append(string_locations[1])
@@ -35,13 +29,7 @@ def one_b(text: list[str]) -> int:
     similarity_score = 0
     for line in text:
         string_locations = line.split()
-        if len(string_locations) != 2 or len(string_locations[0]) != len(
-            string_locations[1]
-        ):
-            raise ValueError(f"Invalid input: {string_locations}")
-        if any(not s.isdigit() for s in string_locations[0]) or any(
-            not s.isdigit() for s in string_locations[1]
-        ):
+        if len(string_locations) != 2 or any(not s.isdigit() for s in string_locations):
             raise ValueError(f"Invalid input: {string_locations}")
         left_list.append(string_locations[0])
         right_list.append(string_locations[1])
