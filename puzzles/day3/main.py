@@ -21,7 +21,9 @@ def three_b(lines: list[str]) -> None:
     command = "".join(lines)
     split_str = re.split(r"don\'t\(\)", command)
     multiplies = re.findall(r"mul\(\d{1,3},\d{1,3}\)", split_str[0])
-    result = sum(a * b for a, b in (map(int, re.findall(r"\d{1,3}", m)) for m in multiplies))
+    result = sum(
+        a * b for a, b in (map(int, re.findall(r"\d{1,3}", m)) for m in multiplies)
+    )
     for s in split_str[1:]:
         do_split = re.split(r"do\(\)", s)
         if len(do_split) == 1:
@@ -29,7 +31,12 @@ def three_b(lines: list[str]) -> None:
         elif len(do_split) >= 2:
             for do in do_split[1:]:
                 multiplies = re.findall(r"mul\(\d{1,3},\d{1,3}\)", do)
-                result += sum(a * b for a, b in (map(int, re.findall(r"\d{1,3}", m)) for m in multiplies))
+                result += sum(
+                    a * b
+                    for a, b in (
+                        map(int, re.findall(r"\d{1,3}", m)) for m in multiplies
+                    )
+                )
     print(f"Three B result {result}")
 
 

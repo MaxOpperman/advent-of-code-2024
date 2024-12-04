@@ -9,14 +9,14 @@ def two_a(lines: list[str]) -> int:
         numbers = level.split()
         assert all(n.isdigit() for n in numbers)
         numbers = list(map(int, numbers))
-        if (
-            all(n < numbers[i + 1] for i, n in enumerate(numbers[:-1]))
-            and all(abs(n - numbers[i + 1]) >= 1 and abs(n - numbers[i + 1]) <= 3 for i, n in enumerate(numbers[:-1]))
+        if all(n < numbers[i + 1] for i, n in enumerate(numbers[:-1])) and all(
+            abs(n - numbers[i + 1]) >= 1 and abs(n - numbers[i + 1]) <= 3
+            for i, n in enumerate(numbers[:-1])
         ):
             safe_count += 1
-        elif (
-            all(n > numbers[i + 1] for i, n in enumerate(numbers[:-1]))
-            and all(abs(n - numbers[i + 1]) >= 1 and abs(n - numbers[i + 1]) <= 3 for i, n in enumerate(numbers[:-1]))
+        elif all(n > numbers[i + 1] for i, n in enumerate(numbers[:-1])) and all(
+            abs(n - numbers[i + 1]) >= 1 and abs(n - numbers[i + 1]) <= 3
+            for i, n in enumerate(numbers[:-1])
         ):
             safe_count += 1
     print(f"Two A result {safe_count}")
@@ -26,7 +26,11 @@ def two_a(lines: list[str]) -> int:
 def is_safe(numbers: list[int]) -> bool:
     if len(numbers) == 1:
         return True
-    elif len(numbers) == 2 and abs(numbers[0] - numbers[1]) <= 3 and abs(numbers[0] - numbers[1]) >= 1:
+    elif (
+        len(numbers) == 2
+        and abs(numbers[0] - numbers[1]) <= 3
+        and abs(numbers[0] - numbers[1]) >= 1
+    ):
         return True
     sign = 1 if numbers[0] < numbers[1] else -1
     for i, n in enumerate(numbers[:-1]):
@@ -45,7 +49,7 @@ def two_b(lines: list[str]) -> int:
             safe_count += 1
         else:
             for i in range(len(numbers)):
-                other_numbers = numbers[:i] + numbers[i + 1:]
+                other_numbers = numbers[:i] + numbers[i + 1 :]
                 if is_safe(other_numbers):
                     safe_count += 1
                     break
