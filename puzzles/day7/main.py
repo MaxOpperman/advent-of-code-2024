@@ -9,23 +9,20 @@ def read_file(input_file: str) -> list[str]:
         return [line.strip() for line in f]
 
 
-def processOps(formula, data, operators):
+def processOps(formula: list[callable], data: list[int], expected: int) -> tuple[list[callable], list[int]]:
     """
     https://stackoverflow.com/questions/44370595/how-to-iterate-through-arithmetic-operators-across-a-static-excecutable-formula
     """
     res_formula = list(formula)
     result = list(data)
     for op in formula:
-        if op not in operators:
-            continue
-
-        i = res_formula.index(op)
-        result = result[:i] + [op(result[i], result[i + 1])] + result[i + 2 :]
+        result = [op(result[0], result[1])] + result[2:]
         res_formula.remove(op)
 
         if len(result) == 1:
             break
-
+        elif result[0] > expected:
+            break
     return (res_formula, result)
 
 
@@ -37,7 +34,7 @@ def seven_a(results: list[int], numbers_list: list[int]) -> int:
         for f in itertools.product(operators, repeat=len(nums) - 1):
             result = list(nums)
             formula = list(f)
-            formula, result = processOps(formula, result, operators)
+            formula, result = processOps(formula, result, current_result)
             # print(f"Current result: {current_result}. Temp res {result}: {formula}")
             if current_result == result[0]:
                 res += current_result
@@ -58,7 +55,7 @@ def seven_b(results: list[int], numbers_list: list[int]) -> int:
         for f in itertools.product(operators, repeat=len(nums) - 1):
             result = list(nums)
             formula = list(f)
-            formula, result = processOps(formula, result, operators)
+            formula, result = processOps(formula, result, current_result)
             # print(f"Current result: {current_result}. Temp res {result}: {formula}")
             if current_result == result[0]:
                 res += current_result
