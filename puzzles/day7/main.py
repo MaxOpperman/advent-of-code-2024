@@ -9,7 +9,9 @@ def read_file(input_file: str) -> list[str]:
         return [line.strip() for line in f]
 
 
-def processOps(formula: list[callable], data: list[int], expected: int) -> tuple[list[callable], list[int]]:
+def processOps(
+    formula: list[callable], data: list[int], expected: int
+) -> tuple[list[callable], list[int]]:
     """
     https://stackoverflow.com/questions/44370595/how-to-iterate-through-arithmetic-operators-across-a-static-excecutable-formula
     """
